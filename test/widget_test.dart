@@ -7,14 +7,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nabd/core/routing/app_router.dart';
-
+ 
 import 'package:nabd/nabd_app.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget( NabdApp( appRouter: AppRouter(),));
+    await tester.pumpWidget( NabdApp( ));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

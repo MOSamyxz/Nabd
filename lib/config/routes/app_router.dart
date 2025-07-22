@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nabd/features/chat/signup_page.dart';
+import 'package:nabd/features/home/presentation/pages/home_page.dart';
 import 'app_routes.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -8,7 +8,7 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
       path: AppRoutes.authGate,
-      builder: (context, state) => const SignUpPage(),
+      builder: (context, state) => const HomePage(),
     ),
   
   ],

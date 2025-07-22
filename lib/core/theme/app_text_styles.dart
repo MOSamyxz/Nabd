@@ -1,41 +1,49 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_localizations/flutter_localizations.dart';
-import 'app_fonts.dart';
+import 'package:nabd/config/responsive/responsive.dart';
+import 'package:nabd/core/utils/font_utils.dart';
 
 class AppTextStyles {
-  static TextTheme getTextTheme(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final color = brightness == Brightness.dark ? Colors.white : Colors.black;
-   // final locale = Localizations.localeOf(context);
+  // Headline Styles
+  static TextStyle headline1(BuildContext context) => TextStyle(
+        fontSize: Responsive(context).sp(7),
+        fontWeight: FontWeight.w800,
+        fontFamily: FontUtils.getFontFamily(context),
+        color: Theme.of(context).textTheme.headlineLarge?.color,
+      );
 
-   // final isArabic = locale.languageCode == 'ar';
-    //final font = isArabic ? AppFonts.cairo : AppFonts.poppins;
-    final font =  AppFonts.poppins;
-
-    return TextTheme(
-      headlineLarge: font.copyWith(
-        fontSize: 24,
+  static TextStyle headline2(BuildContext context) => TextStyle(
+        fontSize: Responsive(context).sp(6),
         fontWeight: FontWeight.bold,
-        color: color,
-      ),
-      headlineMedium: font.copyWith(
-        fontSize: 20,
+        fontFamily: FontUtils.getFontFamily(context),
+        color: Theme.of(context).textTheme.headlineMedium?.color,
+      );
+
+  static TextStyle headline3(BuildContext context) => TextStyle(
+        fontSize: Responsive(context).sp(5),
         fontWeight: FontWeight.w600,
-        color: color,
-      ),
-      bodyLarge: font.copyWith(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        color: color,
-      ),
-      bodyMedium: font.copyWith(
-        fontSize: 14,
-        color: color.withValues(alpha: (0.85 * 255)),
-      ),
-      labelSmall: font.copyWith(
-        fontSize: 12,
-        color: color.withValues(alpha: (0.6 * 255)),
-      ),
-    );
-  }
+        fontFamily: FontUtils.getFontFamily(context),
+        color: Theme.of(context).textTheme.headlineSmall?.color,
+      );
+
+  // Body Styles
+  static TextStyle bodyLarge(BuildContext context) => TextStyle(
+        fontSize: Responsive(context).sp(4.5),
+        fontWeight: FontWeight.w500,
+        fontFamily: FontUtils.getFontFamily(context),
+        color: Theme.of(context).textTheme.bodyLarge?.color,
+      );
+
+  static TextStyle bodyMedium(BuildContext context) => TextStyle(
+        fontSize: Responsive(context).sp(4),
+        fontWeight: FontWeight.normal,
+        fontFamily: FontUtils.getFontFamily(context),
+        color: Theme.of(context).textTheme.bodyMedium?.color,
+      );
+
+  static TextStyle caption(BuildContext context) => TextStyle(
+        fontSize: Responsive(context).sp(3.5),
+        fontWeight: FontWeight.w300,
+        fontFamily: FontUtils.getFontFamily(context),
+        color: Theme.of(context).textTheme.bodySmall?.color,
+      );
 }
