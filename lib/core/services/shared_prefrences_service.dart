@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SharedPrefrencesService {
   
@@ -30,5 +31,24 @@ class SharedPrefrencesService {
   Future<bool?> getBool(String key) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(key) ?? false;
+  }
+
+    /// Saves a [value] with a [key] in the FlutterSecureStorage.
+  static setSecuredString(String key, String value) async {
+    const flutterSecureStorage = FlutterSecureStorage();
+     
+    await flutterSecureStorage.write(key: key, value: value);
+  }
+
+  /// Gets an String value from FlutterSecureStorage with given [key].
+  static getSecuredString(String key) async {
+    const flutterSecureStorage = FlutterSecureStorage();
+     return await flutterSecureStorage.read(key: key) ?? '';
+  }
+
+  /// Removes all keys and values in the FlutterSecureStorage
+  static clearAllSecuredData() async {
+     const flutterSecureStorage = FlutterSecureStorage();
+    await flutterSecureStorage.deleteAll();
   }
 }
