@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nabd/core/errors/exceptions.dart';
+import 'package:nabd/core/services/network_service.dart';
 import 'package:nabd/core/services/theme_service.dart';
- import 'local_storage_service.dart';
-import 'network_service.dart';
+import 'local_storage_service.dart';
+
 class AppService {
   final LocalStorageService localStorage;
   final NetworkService networkService;
@@ -25,8 +26,13 @@ class AppService {
     debugPrint('✅ AppService: Initialization complete.');
   }
 
-  Future<void> _checkNetwork() async {
-    final hasInternet = await networkService.hasInternet();
-    if (!hasInternet) throw NetworkException();
-  }
+Future<void> _checkNetwork() async {
+  final connectionType = await NetworkService().getConnectionType();
+
+  final isConnected = connectionType != ConnectionType.disconnected &&
+                      connectionType != ConnectionType.unknown;
+
+  if (!isConnected) throw NetworkException();
+}
+
 }

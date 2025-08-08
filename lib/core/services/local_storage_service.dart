@@ -1,48 +1,33 @@
-import 'dart:developer';
-
 import 'package:hive/hive.dart';
 
-class LocalStorageService {
-  static final LocalStorageService _instance = LocalStorageService._internal();
-  factory LocalStorageService() => _instance;
-  LocalStorageService._internal();
+abstract class LocalStorageService<T> {
+  final String boxName;
 
-  late Box _box;
+  LocalStorageService(this.boxName);
 
-  Future<void> init() async {
-    _box = await Hive.openBox('appBox');
-  }
-
-  T? get<T>(String key) {
-    try {
-      return _box.get(key) as T?;
-    } catch (e) {
-      log('LocalStorageService.get error: $e');
-      return null;
+  Future<void> openBox() async {
+    if (!Hive.isBoxOpen(boxName)) {
+      await Hive.openBox<T>(boxName);
     }
   }
 
-  Future<void> set<T>(String key, T value) async {
-    try {
-      await _box.put(key, value);
-    } catch (e) {
-      log('LocalStorageService.set error: $e');
-    }
+  Future<void> save(String key, T value) async {
+    final box = Hive.box<T>(boxName);
+    await box.put(key, value);
+  }
+
+  T? get(String key) {
+    final box = Hive.box<T>(boxName);
+    return box.get(key);
   }
 
   Future<void> delete(String key) async {
-    try {
-      await _box.delete(key);
-    } catch (e) {
-      log('LocalStorageService.delete error: $e');
-    }
+    final box = Hive.box<T>(boxName);
+    await box.delete(key);
   }
 
   Future<void> clear() async {
-    try {
-      await _box.clear();
-    } catch (e) {
-      log('LocalStorageService.clear error: $e');
-    }
+    final box = Hive.box<T>(boxName);
+    await box.clear();
   }
 }
