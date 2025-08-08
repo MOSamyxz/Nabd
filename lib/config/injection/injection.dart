@@ -1,10 +1,14 @@
 import 'package:get_it/get_it.dart';
+import 'package:nabd/core/cubits/network/network_cubit.dart';
 import 'package:nabd/core/services/app_service.dart';
-import 'package:nabd/core/services/image_picke_service.dart';
-import 'package:nabd/core/services/local_storage_service.dart';
+import 'package:nabd/core/services/auth_service.dart';
+import 'package:nabd/core/services/crud_service.dart';
 import 'package:nabd/core/services/network_service.dart';
-import 'package:nabd/core/services/shared_prefrences_service.dart';
+import 'package:nabd/core/services/image_picker_service.dart';
+ import 'package:nabd/core/services/shared_prefrences_service.dart';
 import 'package:nabd/core/services/theme_service.dart';
+import 'package:nabd/features/auth/data/datasources/auth_local_data_source.dart';
+import 'package:nabd/features/auth/data/datasources/auth_remote_data_source.dart';
 
 final sl = GetIt.instance;
 
@@ -19,18 +23,29 @@ Future<void> initServiceLocator() async {
   );
 
   //* Local Storage Service
-  final localStorage = LocalStorageService();
-  await localStorage.init();
-  sl.registerSingleton<LocalStorageService>(localStorage);
+  final userLocalStorage = UserLocalStorage();
+  sl.registerSingleton<UserLocalStorage>(userLocalStorage);
 
+  //* Auth Service
+  sl.registerLazySingleton(() => AuthService());
+  sl.registerLazySingleton(() => SupabaseCrudService());
+  
   //* Shared Preferences Service
   sl.registerLazySingleton(() => SharedPrefrencesService());
 
-  //* Network Service
-  sl.registerLazySingleton(() => NetworkService());
-
-//* Theme Service
+  //* Theme Service
   sl.registerLazySingleton<ThemeService>(() => ThemeServiceImpl(sl()));
+
   //* Image Picker Service
   sl.registerLazySingleton(() => ImagePickerService());
+
+  //* Network Service
+  sl.registerLazySingleton(() => NetworkService());
+  sl.registerFactory(() => NetworkCubit(sl<NetworkService>()));
+
+  //* Auth Feature
+  //? Remote Data Source
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(sl(), sl()),
+  );
 }
