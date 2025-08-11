@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nabd/core/cubits/cubit/user_cubit.dart';
 import 'package:nabd/core/services/crud_service.dart';
 import 'package:nabd/core/services/shared_prefrences_service.dart';
 import 'package:nabd/features/auth/data/datasources/auth_local_data_source.dart';
@@ -14,12 +13,10 @@ class LoginCubit extends Cubit<LoginState> {
   final SupabaseCrudService _supabaseCrudService;
   final UserLocalStorage _localStorage;
 
-  final UserCubit _userCubit;
 
   LoginCubit(
     this._authRepository,
     this._supabaseCrudService,
-    this._userCubit,
     this._localStorage,
   ) : super(LoginState.initial());
   TextEditingController emailController = TextEditingController();
@@ -37,7 +34,6 @@ class LoginCubit extends Cubit<LoginState> {
         saveUserToken(user.session?.accessToken ?? '');
         getUser(user.user!.id).then((userModel) {
           saveUserLocally(userModel);
-          _userCubit.setUser(userModel);
         });
         emit(LoginState.success(user));
       },
