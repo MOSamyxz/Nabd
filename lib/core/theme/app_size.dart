@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:nabd/config/responsive/responsive.dart';
 
 class AppSize {
-  static double paddingSmall(BuildContext context) => Responsive(context).padding(2.5);
-  static double paddingMedium(BuildContext context) => Responsive(context).padding(4);
-  static double paddingLarge(BuildContext context) => Responsive(context).padding(6);
+  static const double padding =4;
+  static const double textFormFieldPadding = .5;
 
-  static double radiusSmall(BuildContext context) => Responsive(context).radius(2.5);
-  static double radiusMedium(BuildContext context) => Responsive(context).radius(4);
-  static double radiusLarge(BuildContext context) => Responsive(context).radius(6);
+  static const double borderRadius = 12.0;
+  static const double buttonHeight = 48.0;
+  static const double textFieldHeight = 56.0;
+  static const EdgeInsets defaultPadding = EdgeInsets.all(padding);
+  static const EdgeInsets smallPadding = EdgeInsets.all(padding / 2);
+  static const EdgeInsets largePadding = EdgeInsets.all(padding * 2);
+  static const EdgeInsets horizontalPadding = EdgeInsets.symmetric(horizontal: padding);
+  static const EdgeInsets verticalPadding = EdgeInsets.symmetric(vertical: padding);
+  static const EdgeInsets symmetricPadding = EdgeInsets.symmetric(horizontal: padding, vertical: padding - 2);
+  static const double iconSize = 24.0;
+
+  static Widget verticalSpace(double height) => SizedBox(height: height);
+  static Widget horizontalSpace(double width) => SizedBox(width: width);
 }
