@@ -16,8 +16,8 @@ class AppTheme {
     ),
 
     appBarTheme: const AppBarTheme(
-      backgroundColor: AppColors.primary,
-      foregroundColor: Colors.white,
+      backgroundColor: AppColors.lightBackground,
+      foregroundColor: Colors.black,
       elevation: 0,
     ),
 
@@ -96,7 +96,7 @@ class AppTheme {
     ),
 
     appBarTheme: const AppBarTheme(
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.darkBackground,
       foregroundColor: Colors.white,
       elevation: 0,
     ),

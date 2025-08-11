@@ -1,49 +1,79 @@
 import 'package:flutter/material.dart';
 import 'package:nabd/config/responsive/responsive.dart';
-import 'package:nabd/core/utils/font_utils.dart';
 
 class AppTextStyles {
-  // Headline Styles
-  static TextStyle headline1(BuildContext context) => TextStyle(
-        fontSize: Responsive(context).sp(7),
-        fontWeight: FontWeight.w800,
-        fontFamily: FontUtils.getFontFamily(context),
-        color: Theme.of(context).textTheme.headlineLarge?.color,
-      );
+  final BuildContext context;
+  final TextTheme textTheme;
+  final ColorScheme colorScheme;
 
-  static TextStyle headline2(BuildContext context) => TextStyle(
-        fontSize: Responsive(context).sp(6),
+  AppTextStyles(this.context)
+      : textTheme = Theme.of(context).textTheme,
+        colorScheme = Theme.of(context).colorScheme;
+
+  // Headings
+  TextStyle get heading1 => textTheme.headlineLarge!.copyWith(
+        fontSize: Responsive(context).sp(9),
         fontWeight: FontWeight.bold,
-        fontFamily: FontUtils.getFontFamily(context),
-        color: Theme.of(context).textTheme.headlineMedium?.color,
+        color: textTheme.headlineLarge?.color,
       );
 
-  static TextStyle headline3(BuildContext context) => TextStyle(
-        fontSize: Responsive(context).sp(5),
+  TextStyle get heading2 => textTheme.headlineMedium!.copyWith(
+        fontSize: Responsive(context).sp(24),
         fontWeight: FontWeight.w600,
-        fontFamily: FontUtils.getFontFamily(context),
-        color: Theme.of(context).textTheme.headlineSmall?.color,
+        color: textTheme.headlineMedium?.color,
       );
 
-  // Body Styles
-  static TextStyle bodyLarge(BuildContext context) => TextStyle(
-        fontSize: Responsive(context).sp(4.5),
+  TextStyle get heading3 => textTheme.headlineSmall!.copyWith(
+        fontSize: Responsive(context).sp(20),
         fontWeight: FontWeight.w500,
-        fontFamily: FontUtils.getFontFamily(context),
-        color: Theme.of(context).textTheme.bodyLarge?.color,
+        color: textTheme.headlineSmall?.color,
       );
 
-  static TextStyle bodyMedium(BuildContext context) => TextStyle(
-        fontSize: Responsive(context).sp(4),
+  // Body text
+  TextStyle get body => textTheme.bodyLarge!.copyWith(
+        fontSize: Responsive(context).sp(16),
         fontWeight: FontWeight.normal,
-        fontFamily: FontUtils.getFontFamily(context),
-        color: Theme.of(context).textTheme.bodyMedium?.color,
+        color: textTheme.bodyLarge?.color,
       );
 
-  static TextStyle caption(BuildContext context) => TextStyle(
-        fontSize: Responsive(context).sp(3.5),
-        fontWeight: FontWeight.w300,
-        fontFamily: FontUtils.getFontFamily(context),
-        color: Theme.of(context).textTheme.bodySmall?.color,
+  TextStyle get bodySecondary => textTheme.bodyMedium!.copyWith(
+        fontSize: Responsive(context).sp(14),
+        fontWeight: FontWeight.normal,
+        color: textTheme.bodyMedium?.color,
+      );
+
+  // Labels
+  TextStyle get label => textTheme.labelMedium!.copyWith(
+        fontSize: Responsive(context).sp(12),
+        fontWeight: FontWeight.w500,
+        color: textTheme.labelMedium?.color,
+      );
+
+  // Error
+  TextStyle get error => textTheme.bodyMedium!.copyWith(
+        fontSize: Responsive(context).sp(14),
+        fontWeight: FontWeight.w500,
+        color: colorScheme.error,
+      );
+
+  // Success (custom color, أو تقدر تعرف success في colorScheme)
+  TextStyle get success => textTheme.bodyMedium!.copyWith(
+        fontSize: Responsive(context).sp(14),
+        fontWeight: FontWeight.w500,
+        color: Colors.green, // تقدر تخليه dynamic لو عرفته في الثيم
+      );
+
+  // Button
+  TextStyle get button => textTheme.labelLarge!.copyWith(
+        fontSize:Responsive(context).sp (16),
+        fontWeight: FontWeight.bold,
+        color: colorScheme.onPrimary,
+      );
+
+  // Subtitle
+  TextStyle get subtitle => textTheme.titleMedium!.copyWith(
+        fontSize: Responsive(context).sp(18),
+        fontWeight: FontWeight.w400,
+        color: textTheme.titleMedium?.color,
       );
 }
