@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nabd/core/cubits/cubit/user_cubit.dart';
 import 'package:nabd/core/services/crud_service.dart';
 import 'package:nabd/features/auth/data/datasources/auth_local_data_source.dart';
 import 'package:nabd/features/auth/data/models/user_model.dart';
@@ -12,13 +11,11 @@ class SignUpCubit extends Cubit<SignUpState> {
   final AuthRepository _authRepository;
   final SupabaseCrudService _supabaseCrudService;
   final UserLocalStorage _localStorage;
-  final UserCubit _userCubit;
 
   SignUpCubit(
     this._authRepository,
     this._supabaseCrudService,
     this._localStorage,
-    this._userCubit,
   ) : super(SignUpState.initial());
 
   TextEditingController nameController = TextEditingController();
@@ -50,7 +47,6 @@ class SignUpCubit extends Cubit<SignUpState> {
         );
         saveUserLocally(userModel);
         saveUserRemote(userModel);
-        _userCubit.setUser(userModel);
         emit(SignUpState.success(data));
       },
       error: (error) {
